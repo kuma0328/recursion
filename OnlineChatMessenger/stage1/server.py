@@ -9,6 +9,7 @@ class chatServer:
 		self.__clients = {} # address and last_active
 		self.__server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 		self.__timeout = 10
+		self.__max_bytes = 4098
 	
 	def start(self):
 		self.__server.bind((self.__host, self.__port))
@@ -16,13 +17,12 @@ class chatServer:
 
 		while True:
 			try:
-				data, address = self.__server.recvfrom(1024)
+				data, address = self.__server.recvfrom(self.__max_bytes)
 				print(f'Message: {data.decode("utf-8")}')
 				self.__clients[address] = time.time()
 				self.handle_data(data, address)
 
 			except Exception as e:
-				self.__clients.remove(address)
 				print(e)
 				break
 		self.__server.close()
