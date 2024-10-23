@@ -1,6 +1,4 @@
 from enum import Enum
-from sre_constants import SUCCESS
-from xmlrpc.client import SERVER_ERROR
 
 class Operation(Enum):
   CREATE_ROOM = 1
@@ -18,9 +16,10 @@ class StatusCodes(Enum):
   ROOM_NOT_FOUND = 404
   SERVER_ERROR = 500
 
-TCP_HEADER_SIZE = 32
-MAX_ROOM_NAME_SIZE = 28
-MAX_PAYLOAD_SIZE = 229
+TCP_HEADER_SIZE = 4
+UDP_HEADER_SIZE = 32
+MAX_ROOM_NAME_SIZE = 2 ** 8
+MAX_PAYLOAD_SIZE = 2 ** 29
 MAX_TOKEN_SIZE = 255
-MAX_UDP_PACKET_SIZE = 4096
+MAX_UDP_PACKET_SIZE = 4094
 
